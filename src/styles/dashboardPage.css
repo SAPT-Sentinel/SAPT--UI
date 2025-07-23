@@ -1,0 +1,87 @@
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  background-color: #ffffff;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 20px 30px;
+  background-color: #ffffff;
+}
+
+h1 {
+  font-size: 24px;
+  color: #000000;
+  margin-bottom: 10px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.welcome-message {
+  font-size: 14px;
+  color: #666666;
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+h2 {
+  font-size: 18px;
+  color: #000000;
+  margin-bottom: 15px;
+  font-weight: 600;
+  text-align: left;
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+}
+
+.nova-avaliacao-btn {
+  background-color: #3b5bfc;
+  color: white;
+  padding: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 30%;
+}
+
+.nova-avaliacao-btn:hover {
+  background-color: #2946d1;
+}
+
+.avaliacoes-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.avaliacoes-table th {
+  background-color: #f2f2f2;
+  color: #333333;
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 15px;
+  border: 1px solid #dddddd;
+}
+
+.avaliacoes-table td {
+  padding: 12px 15px;
+  border: 1px solid #dddddd;
+  color: #333333;
+}
+
+.view-link {
+  color: #0066cc;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.view-link:hover {
+  text-decoration: underline;
+}
