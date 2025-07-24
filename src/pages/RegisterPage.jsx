@@ -1,33 +1,28 @@
-import { useState } from 'react';
-import '../styles/RegisterPage.css';
+import { useForm } from "react-hook-form";
+import "../styles/RegisterPage.css";
 
 export default function RegisterPage() {
-  const [usuario, setUsuario] = useState('');
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const [confirmar, setConfirmar] = useState('');
-  const [erro, setErro] = useState('');
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setError,
+    formState: { errors },
+  } = useForm();
 
-  const handleRegister = (e) => {
-    e.preventDefault();
+  const senha = watch("senha");
+  const confirmar = watch("confirmar");
 
-    if (!usuario || !email || !senha || !confirmar) {
-      setErro('Todos os campos são obrigatórios');
-      return;
-    }
-
+  const onSubmit = () => {
     if (senha !== confirmar) {
-      setErro('As senhas não coincidem');
+      setError("confirmar", {
+        type: "manual",
+        message: "As senhas não coincidem",
+      });
       return;
     }
 
-    if (senha.length < 6) {
-      setErro('A senha deve ter pelo menos 6 caracteres');
-      return;
-    }
-
-    setErro('');
-    alert('Cadastro realizado com sucesso!');
+    alert("Cadastro realizado com sucesso!");
   };
 
   return (
@@ -35,44 +30,52 @@ export default function RegisterPage() {
       <div className="register-box">
         <h2>SAPT - Cadastro</h2>
 
-        <form onSubmit={handleRegister}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="usuario">Usuário:</label>
           <input
             id="usuario"
             type="text"
-            value={usuario}
-            onChange={(e) => setUsuario(e.target.value)}
-            className={erro && !usuario ? 'error-input' : ''}
+            {...register("usuario", { required: "Usuário é obrigatório" })}
+            className={errors.usuario ? "error-input" : ""}
           />
+          {errors.usuario && <p className="error">{errors.usuario.message}</p>}
 
           <label htmlFor="email">Email:</label>
           <input
             id="email"
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className={erro && !email ? 'error-input' : ''}
+            {...register("email", { required: "Email é obrigatório" })}
+            className={errors.email ? "error-input" : ""}
           />
+          {errors.email && <p className="error">{errors.email.message}</p>}
 
           <label htmlFor="senha">Senha:</label>
           <input
             id="senha"
             type="password"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            className={erro && (senha.length < 6 || !senha) ? 'error-input' : ''}
+            {...register("senha", {
+              required: "Senha é obrigatória",
+              minLength: {
+                value: 6,
+                message: "A senha deve ter pelo menos 6 caracteres",
+              },
+            })}
+            className={errors.senha ? "error-input" : ""}
           />
+          {errors.senha && <p className="error">{errors.senha.message}</p>}
 
           <label htmlFor="confirmar">Confirmar senha:</label>
           <input
             id="confirmar"
             type="password"
-            value={confirmar}
-            onChange={(e) => setConfirmar(e.target.value)}
-            className={erro && (senha !== confirmar || !confirmar) ? 'error-input' : ''}
+            {...register("confirmar", {
+              required: "Confirmação de senha é obrigatória",
+            })}
+            className={errors.confirmar ? "error-input" : ""}
           />
-
-          {erro && <p className="error">{erro}</p>}
+          {errors.confirmar && (
+            <p className="error">{errors.confirmar.message}</p>
+          )}
 
           <button type="submit">Cadastrar</button>
         </form>
