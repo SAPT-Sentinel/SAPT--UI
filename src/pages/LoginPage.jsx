@@ -14,7 +14,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   const onSubmit = ({ email, senha }) => {
-    if (email === "teste@teste.com" && senha === "123") {
+    if (email === "teste@teste.com" && senha.toString() === "123") {
       alert("Login válido");
       navigate("/dashboard"); // ir para a tela principal
     } else {
