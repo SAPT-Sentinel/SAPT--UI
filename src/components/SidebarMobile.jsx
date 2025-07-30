@@ -24,7 +24,7 @@ export default function SidebarMobile({ onClose }) {
           <NavLink to="/dashboard" className="nav-item" onClick={onClose}>
             <i className="fi fi-sr-house-chimney icon"></i> Dashboard
           </NavLink>
-          <NavLink to="/nova-avaliacao" className="nav-item" onClick={onClose}>
+          <NavLink to="/analise" className="nav-item" onClick={onClose}>
             <i className="fi fi-rr-square-plus icon"></i> Nova Avaliação
           </NavLink>
           <NavLink to="/configuracoes" className="nav-item" onClick={onClose}>
