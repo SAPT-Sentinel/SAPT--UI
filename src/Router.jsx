@@ -8,15 +8,28 @@ import ConfiguracoesPage from "./pages/ConfigPage";
 import AnalisePage from "./pages/AnalisePage";
 import AvaliacaoDetalhes from "./pages/AvaliacaoDetalhes";
 
+// Protege rotas privadas
 function PrivateRoute({ children }) {
   const { isAuthenticated } = useAuth();
 
   if (isAuthenticated() === null) {
-    // Ainda carregando a validação do token
-    return <Navigate to="/login" />;
+    // ainda carregando
+    return null;
   }
 
   return isAuthenticated() ? children : <Navigate to="/login" />;
+}
+
+// Impede acesso às rotas públicas por usuários autenticados
+function PublicRoute({ children }) {
+  const { isAuthenticated } = useAuth();
+
+  if (isAuthenticated() === null) {
+    // ainda carregando
+    return null;
+  }
+
+  return isAuthenticated() ? <Navigate to="/dashboard" /> : children;
 }
 
 export default function AppRoutes() {
@@ -24,7 +37,7 @@ export default function AppRoutes() {
 
   return (
     <Routes>
-      {/* Redirecionamento da raiz baseado em autenticação */}
+      {/* Redirecionamento da raiz baseado na autenticação */}
       <Route
         path="/"
         element={
@@ -36,9 +49,23 @@ export default function AppRoutes() {
         }
       />
 
-      {/* Rotas públicas */}
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/cadastro" element={<RegisterPage />} />
+      {/* Rotas públicas (bloqueadas se logado) */}
+      <Route
+        path="/login"
+        element={
+          <PublicRoute>
+            <LoginPage />
+          </PublicRoute>
+        }
+      />
+      <Route
+        path="/cadastro"
+        element={
+          <PublicRoute>
+            <RegisterPage />
+          </PublicRoute>
+        }
+      />
 
       {/* Rotas privadas */}
       <Route
@@ -74,7 +101,7 @@ export default function AppRoutes() {
         }
       />
 
-      {/* Fallback: rota não mapeada */}
+      {/* Fallback para rota não mapeada */}
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
