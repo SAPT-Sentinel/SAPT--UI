@@ -85,3 +85,60 @@ h2 {
 .view-link:hover {
   text-decoration: underline;
 }
+
+/* ----------- Estilos Mobile ----------- */
+/* MOBILE FIRST DESIGN PARA TELAS MENORES QUE 768PX */
+@media screen and (max-width: 768px) {
+  .dashboard {
+    flex-direction: column;
+    position: relative;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 250px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    transition: left 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar.open {
+    left: 0;
+  }
+
+  .menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 24px;
+    margin: 10px 0;
+    cursor: pointer;
+  }
+
+  .dashboard-content {
+    padding: 20px;
+    width: 100%;
+  }
+
+  .btn-wrapper {
+    justify-content: center;
+  }
+
+  .nova-avaliacao-btn {
+    width: 100%;
+  }
+
+  .avaliacoes-table th:nth-child(2),
+  .avaliacoes-table td:nth-child(2),
+  .avaliacoes-table th:nth-child(4),
+  .avaliacoes-table td:nth-child(4) {
+    display: none; /* Oculta data e ações em telas pequenas */
+  }
+}
+

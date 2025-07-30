@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import "../styles/RegisterPage.css";
 
 export default function RegisterPage() {
@@ -12,8 +13,11 @@ export default function RegisterPage() {
 
   const senha = watch("senha");
   const confirmar = watch("confirmar");
+  const navigate = useNavigate();
 
-  const onSubmit = () => {
+  const onSubmit = (data) => {
+    const { usuario, email, senha, confirmar } = data;
+
     if (senha !== confirmar) {
       setError("confirmar", {
         type: "manual",
@@ -22,7 +26,25 @@ export default function RegisterPage() {
       return;
     }
 
+    const newUser = { usuario, email, senha };
+    const existingUsers = JSON.parse(localStorage.getItem("sapt-users")) || [];
+
+    const userExists = existingUsers.some((user) => user.email === email);
+    if (userExists) {
+      setError("email", {
+        type: "manual",
+        message: "Já existe um usuário com esse e-mail",
+      });
+      return;
+    }
+
+    existingUsers.push(newUser);
+    localStorage.setItem("sapt-users", JSON.stringify(existingUsers));
+
     alert("Cadastro realizado com sucesso!");
+
+    
+    navigate("/login");
   };
 
   return (

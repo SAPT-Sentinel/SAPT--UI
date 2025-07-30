@@ -176,6 +176,10 @@ input:focus {
 
 /* Responsividade */
 @media (max-width: 768px) {
+  .config-page {
+    flex-direction: column;
+  }
+  
   .config-content {
     padding: 1.5rem;
   }

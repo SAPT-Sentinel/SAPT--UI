@@ -1,0 +1,91 @@
+.sidebar-mobile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 2000;
+  overflow-y: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.sidebar-mobile {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: #f9fafb; /* fundo claro */
+  padding: 1rem;
+}
+
+
+.sidebar-mobile .header {
+  position: relative;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding-bottom: 1rem;
+}
+
+.sidebar-mobile .logo-text {
+  font-weight: bold;
+  font-size: 18px;
+  color: #111827;
+}
+
+.sidebar-mobile .close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #2563eb;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  background-color: #e5e7eb;
+  border-radius: 999px;
+  margin-top: 1.5rem;
+}
+
+.user-text .name {
+  font-weight: bold;
+  font-size: 14px;
+  color: #111827;
+}
+
+.user-text .email {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.nav-links {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 16px;
+  text-decoration: none;
+  color: #111827;
+  padding: 10px;
+  border-radius: 6px;
+}
+
+.nav-item:hover {
+  background-color: #f3f4f6;
+}
+
+.nav-item.sair {
+  color: #7c1212;
+}

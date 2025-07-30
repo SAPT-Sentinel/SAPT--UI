@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import Sidebar from '../components/sideBar';
+import HeaderMobile from '../components/HeaderMobile';
+/* import SidebarMobile from '../components/SidebarMobile'; */
+import { useMediaQuery } from '../hooks/useMediaQuery';
 import '../styles/configPage.css';
 
 export default function ConfiguracoesPage() {
@@ -9,6 +12,7 @@ export default function ConfiguracoesPage() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [saved, setSaved] = useState(false);
+  const isMobile = useMediaQuery('(max-width: 768px)');
 
   const handleSave = () => {
     setSaved(true);
@@ -17,8 +21,9 @@ export default function ConfiguracoesPage() {
 
   return (
     <div className="config-page">
-      <Sidebar />
+      {isMobile ? <HeaderMobile /> : <Sidebar />}
       <div className="config-content">
+        {/* {isMobile && <HeaderMobile />} */}
         <header className="config-header">
           <h2>Configurações</h2>
           <small>Gerencie suas preferências e informações da conta</small>

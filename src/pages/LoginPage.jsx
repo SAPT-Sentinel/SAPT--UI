@@ -14,13 +14,17 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   const onSubmit = ({ email, senha }) => {
-    if (email === "teste@teste.com" && senha.toString() === "123") {
+    const users = JSON.parse(localStorage.getItem("sapt-users")) || [];
+
+    const matchedUser = users.find(user => user.email === email && user.senha === senha);
+
+    if (matchedUser) {
       alert("Login válido");
-      navigate("/dashboard"); // ir para a tela principal
+      navigate("/dashboard");
     } else {
       setError("senha", {
         type: "manual",
-        message: "informações incorretas",
+        message: "Informações incorretas",
       });
     }
   };
