@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import "../styles/RegisterPage.css";
+import "../styles/registerPage.css";
 
 export default function RegisterPage() {
   const {
