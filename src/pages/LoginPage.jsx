@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { login } from "../services/authService";
 import { useNotification } from "../context/NotificationContext";
-import CircularProgress from "@mui/material/CircularProgress"; // <- novo import
+import CircularProgress from "@mui/material/CircularProgress";
 import "../styles/loginPage.css";
+import { useAuth } from "../context/AuthContext";
 
 export default function LoginPage() {
+  const { setToken, isAuthenticated } = useAuth();
   const {
     register,
     handleSubmit,
@@ -15,18 +17,22 @@ export default function LoginPage() {
   } = useForm();
 
   const [capsLockAtivo, setCapsLockAtivo] = useState(false);
-  const [loading, setLoading] = useState(false); // <- novo estado
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { addNotification } = useNotification();
 
   const onSubmit = async ({ username, password }) => {
-    setLoading(true); // inicia o loading
+    setLoading(true);
     try {
-      await login(username, password);
+      const token = await login(username, password);
+
+      // Atualiza o contexto de autenticação
+      setToken(token);
+
       addNotification("Login realizado com sucesso!", "success");
       navigate("/dashboard");
     } catch (err) {
-      console.log(err);
+      console.error(err);
       addNotification("Usuário ou senha inválidos", "error");
 
       setError("password", {
@@ -34,7 +40,7 @@ export default function LoginPage() {
         message: "Informações incorretas",
       });
     } finally {
-      setLoading(false); // encerra o loading
+      setLoading(false);
     }
   };
 
@@ -81,7 +87,7 @@ export default function LoginPage() {
           )}
 
           <button type="submit" disabled={loading}>
-            {loading ? (
+            {loading || isAuthenticated() === null ? (
               <CircularProgress size={22} style={{ color: "white" }} />
             ) : (
               "Entrar"
