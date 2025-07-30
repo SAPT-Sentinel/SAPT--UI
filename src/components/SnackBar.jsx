@@ -1,48 +1,36 @@
 import React from "react";
+import { Snackbar, Alert, Slide } from "@mui/material";
 import { useNotification } from "../context/NotificationContext";
+
+function SlideTransition(props) {
+  return <Slide {...props} direction="left" />;
+}
 
 const SnackBarComponent = () => {
   const { notifications, removeNotification } = useNotification();
 
   return (
-    <div
-      style={{ position: "fixed", top: "10px", right: "10px", zIndex: 1300 }}
-    >
+    <>
       {notifications.map(({ id, message, type }) => (
-        <div
+        <Snackbar
           key={id}
-          style={{
-            margin: "8px 0",
-            padding: "10px 15px",
-            borderRadius: "5px",
-            color: "white",
-            backgroundColor:
-              type === "success"
-                ? "green"
-                : type === "error"
-                ? "red"
-                : type === "warning"
-                ? "orange"
-                : "blue",
-          }}
+          open
+          autoHideDuration={5000}
+          onClose={() => removeNotification(id)}
+          TransitionComponent={SlideTransition}
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}
         >
-          {message}
-          <button
-            type="button"
-            style={{
-              marginLeft: "10px",
-              background: "none",
-              border: "none",
-              color: "white",
-              cursor: "pointer",
-            }}
-            onClick={() => removeNotification(id)}
+          <Alert
+            onClose={() => removeNotification(id)}
+            severity={type}
+            variant="filled"
+            sx={{ width: "100%" }}
           >
-            ✖
-          </button>
-        </div>
+            {message}
+          </Alert>
+        </Snackbar>
       ))}
-    </div>
+    </>
   );
 };
 
