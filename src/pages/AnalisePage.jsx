@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import jsPDF from "jspdf"; // <-- novo
 import autoTable from "jspdf-autotable";
-import Sidebar from "../components/sideBar";
+import Sidebar from "../components/Sidebar";
 import { gerarAnalise, editarResultado } from "../services/analiseService";
 import { useNotification } from "../context/NotificationContext";
 import Snackbar from "@mui/material/Snackbar";

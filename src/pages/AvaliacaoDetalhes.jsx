@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Sidebar from "../components/sideBar";
+import Sidebar from "../components/Sidebar";
 import HeaderMobile from "../components/HeaderMobile";
 import { useMediaQuery } from "../hooks/useMediaQuery";
 import { getAnalisePorId } from "../services/analiseService";

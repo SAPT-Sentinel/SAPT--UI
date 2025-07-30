@@ -6,13 +6,10 @@ export default function RegisterPage() {
   const {
     register,
     handleSubmit,
-    watch,
     setError,
     formState: { errors },
   } = useForm();
 
-  const senha = watch("senha");
-  const confirmar = watch("confirmar");
   const navigate = useNavigate();
 
   const onSubmit = (data) => {

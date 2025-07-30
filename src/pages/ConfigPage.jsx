@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Sidebar from '../components/sideBar';
+import Sidebar from '../components/Sidebar';
 import HeaderMobile from '../components/HeaderMobile';
 /* import SidebarMobile from '../components/SidebarMobile'; */
 import { useMediaQuery } from '../hooks/useMediaQuery';

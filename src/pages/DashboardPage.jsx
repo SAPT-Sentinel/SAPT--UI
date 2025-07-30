@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "../components/sideBar";
+import Sidebar from "../components/Sidebar";
 import HeaderMobile from "../components/HeaderMobile";
 import { useMediaQuery } from "../hooks/useMediaQuery";
 import { getAnalises } from "../services/analiseService";
+import LinearProgress from "@mui/material/LinearProgress";
 import "../styles/dashboardPage.css";
 
 export default function DashboardPage() {
   const [avaliacoes, setAvaliacoes] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const isMobile = useMediaQuery("(max-width: 768px)");
 
@@ -18,6 +20,8 @@ export default function DashboardPage() {
         setAvaliacoes(data);
       } catch (error) {
         console.error("Erro ao buscar análises:", error);
+      } finally {
+        setLoading(false);
       }
     }
     fetchData();
@@ -42,7 +46,7 @@ export default function DashboardPage() {
         <div className="btn-wrapper">
           <button
             className="nova-avaliacao-btn"
-            onClick={() => navigate("/nova-avaliacao")}
+            onClick={() => navigate("/analise")}
           >
             Começar nova avaliação
           </button>
@@ -50,46 +54,50 @@ export default function DashboardPage() {
 
         <h2>Avaliações Recentes</h2>
 
-        <table className="avaliacoes-table">
-          <thead>
-            <tr>
-              <th>Portal URL</th>
-              {!isMobile && <th>Data da avaliação</th>}
-              <th>Critérios atendidos</th>
-              {!isMobile && <th>Ações</th>}
-            </tr>
-          </thead>
-          <tbody>
-            {avaliacoes.map((av) => (
-              <tr key={av.id}>
-                <td>
-                  <a
-                    href={av.url_avaliada}
-                    className="portal-link"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {av.url_avaliada.replace(/^https?:\/\//, "")}
-                  </a>
-                </td>
-                {!isMobile && (
-                  <td>{new Date(av.data_analise).toLocaleDateString()}</td>
-                )}
-                <td>{contarCriterios(av.resultados)}</td>
-                {!isMobile && (
-                  <td>
-                    <button
-                      className="view-link"
-                      onClick={() => navigate(`/avaliacoes/${av.id}`)}
-                    >
-                      Ver avaliação
-                    </button>
-                  </td>
-                )}
+        {loading ? (
+          <LinearProgress />
+        ) : (
+          <table className="avaliacoes-table">
+            <thead>
+              <tr>
+                <th>Portal URL</th>
+                {!isMobile && <th>Data da avaliação</th>}
+                <th>Critérios atendidos</th>
+                {!isMobile && <th>Ações</th>}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {avaliacoes.map((av) => (
+                <tr key={av.id}>
+                  <td>
+                    <a
+                      href={av.url_avaliada}
+                      className="portal-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {av.url_avaliada.replace(/^https?:\/\//, "")}
+                    </a>
+                  </td>
+                  {!isMobile && (
+                    <td>{new Date(av.data_analise).toLocaleDateString()}</td>
+                  )}
+                  <td>{contarCriterios(av.resultados)}</td>
+                  {!isMobile && (
+                    <td>
+                      <button
+                        className="view-link"
+                        onClick={() => navigate(`/avaliacoes/${av.id}`)}
+                      >
+                        Ver avaliação
+                      </button>
+                    </td>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );
