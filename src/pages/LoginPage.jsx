@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { login } from "../services/authService";
-import { useNotification } from "../context/NotificationContext"; // ajuste o caminho conforme necessário
+import { useNotification } from "../context/NotificationContext";
+import CircularProgress from "@mui/material/CircularProgress"; // <- novo import
 import "../styles/loginPage.css";
 
 export default function LoginPage() {
@@ -12,23 +13,28 @@ export default function LoginPage() {
     setError,
     formState: { errors },
   } = useForm();
+
   const [capsLockAtivo, setCapsLockAtivo] = useState(false);
+  const [loading, setLoading] = useState(false); // <- novo estado
   const navigate = useNavigate();
-  const { addNotification } = useNotification(); // <- novo hook
+  const { addNotification } = useNotification();
 
   const onSubmit = async ({ username, password }) => {
+    setLoading(true); // inicia o loading
     try {
       await login(username, password);
-      addNotification("Login realizado com sucesso!", "success"); // <- substitui alert
+      addNotification("Login realizado com sucesso!", "success");
       navigate("/dashboard");
     } catch (err) {
       console.log(err);
-      addNotification("Usuário ou senha inválidos", "error"); // <- notificação de erro
+      addNotification("Usuário ou senha inválidos", "error");
 
       setError("password", {
         type: "manual",
         message: "Informações incorretas",
       });
+    } finally {
+      setLoading(false); // encerra o loading
     }
   };
 
@@ -74,7 +80,13 @@ export default function LoginPage() {
             <p className="erro-msg">{errors.password.message}</p>
           )}
 
-          <button type="submit">Entrar</button>
+          <button type="submit" disabled={loading}>
+            {loading ? (
+              <CircularProgress size={22} style={{ color: "white" }} />
+            ) : (
+              "Entrar"
+            )}
+          </button>
         </form>
 
         <p className="link-registro">
