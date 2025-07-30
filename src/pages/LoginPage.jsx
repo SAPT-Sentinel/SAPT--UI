@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { login } from "../services/authService"; 
 import "../styles/loginPage.css";
 
 export default function LoginPage() {
@@ -13,16 +14,13 @@ export default function LoginPage() {
   const [capsLockAtivo, setCapsLockAtivo] = useState(false);
   const navigate = useNavigate();
 
-  const onSubmit = ({ email, senha }) => {
-    const users = JSON.parse(localStorage.getItem("sapt-users")) || [];
-
-    const matchedUser = users.find(user => user.email === email && user.senha === senha);
-
-    if (matchedUser) {
+  const onSubmit = async ({ username, password }) => {
+    try {
+      await login(username, password);
       alert("Login válido");
       navigate("/dashboard");
-    } else {
-      setError("senha", {
+    } catch (err) {
+      setError("password", {
         type: "manual",
         message: "Informações incorretas",
       });
@@ -39,16 +37,16 @@ export default function LoginPage() {
         <h1>SAPT</h1>
 
         <form onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="username">Usuário:</label>
           <input
-            id="email"
-            type="email"
-            {...register("email", { required: "Email é obrigatório" })}
+            id="username"
+            type="text"
+            {...register("username", { required: "Usuário é obrigatório" })}
           />
-          {errors.email && <p className="erro-msg">{errors.email.message}</p>}
+          {errors.username && <p className="erro-msg">{errors.username.message}</p>}
 
           <div className="senha-label-container">
-            <label htmlFor="senha" className={errors.senha ? "erro-label" : ""}>
+            <label htmlFor="password" className={errors.password ? "erro-label" : ""}>
               Senha:
             </label>
             {capsLockAtivo && (
@@ -56,13 +54,13 @@ export default function LoginPage() {
             )}
           </div>
           <input
-            id="senha"
+            id="password"
             type="password"
-            {...register("senha", { required: "Senha é obrigatória" })}
+            {...register("password", { required: "Senha é obrigatória" })}
             onKeyUp={verificarCapsLock}
-            className={errors.senha ? "input-erro" : ""}
+            className={errors.password ? "input-erro" : ""}
           />
-          {errors.senha && <p className="erro-msg">{errors.senha.message}</p>}
+          {errors.password && <p className="erro-msg">{errors.password.message}</p>}
 
           <button type="submit">Entrar</button>
         </form>
