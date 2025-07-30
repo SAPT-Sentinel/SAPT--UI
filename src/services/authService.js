@@ -1,17 +1,24 @@
 // src/services/authService.js
-import axios from "axios";
+import api from "./api"; // Certifique-se que o caminho esteja correto
 
 export async function login(username, password) {
-  const response = await axios.post("https://sapt-api.onrender.com/login", {
-    username,
-    password
-  }, {
-    headers: {
-      "Content-Type": "application/json"
+  const response = await api.post(
+    "/login",
+    {
+      username,
+      password,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
     }
-  });
+  );
 
   const token = response.data.access_token;
-  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+  // Salva no localStorage para que os interceptors usem automaticamente
+  localStorage.setItem("token", token);
+
   return token;
 }
