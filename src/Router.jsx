@@ -4,6 +4,7 @@ import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/dashboardPage';
 import ConfiguracoesPage from './pages/configPage';
 import AnalisePage from './pages/AnalisePage';
+import AvaliacaoDetalhes from './pages/AvaliacaoDetalhes';
 
 
 export default function AppRoutes() {
@@ -15,6 +16,7 @@ export default function AppRoutes() {
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/analise" element={<AnalisePage />} />
       <Route path="/configuracoes" element={<ConfiguracoesPage />} />
+      <Route path="/avaliacoes/:id" element={<AvaliacaoDetalhes />} />
     </Routes>
   );
 }

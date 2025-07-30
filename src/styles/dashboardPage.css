@@ -77,13 +77,14 @@ h2 {
 }
 
 .view-link {
-  color: #0066cc;
+  background-color: #264aff;
+  color: white;
   text-decoration: none;
   font-weight: 500;
 }
 
 .view-link:hover {
-  text-decoration: underline;
+  background-color: #3c58e4;
 }
 
 /* ----------- Estilos Mobile ----------- */
