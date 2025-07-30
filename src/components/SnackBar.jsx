@@ -1,5 +1,5 @@
 import React from "react";
-import { useNotification } from "src/context/NotificationContext";
+import { useNotification } from "../context/NotificationContext";
 
 const SnackBarComponent = () => {
   const { notifications, removeNotification } = useNotification();

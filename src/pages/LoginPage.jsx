@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { login } from "../services/authService"; 
+import { login } from "../services/authService";
+import { useNotification } from "../context/NotificationContext"; // ajuste o caminho conforme necessário
 import "../styles/loginPage.css";
 
 export default function LoginPage() {
@@ -13,13 +14,17 @@ export default function LoginPage() {
   } = useForm();
   const [capsLockAtivo, setCapsLockAtivo] = useState(false);
   const navigate = useNavigate();
+  const { addNotification } = useNotification(); // <- novo hook
 
   const onSubmit = async ({ username, password }) => {
     try {
       await login(username, password);
-      alert("Login válido");
+      addNotification("Login realizado com sucesso!", "success"); // <- substitui alert
       navigate("/dashboard");
     } catch (err) {
+      console.log(err);
+      addNotification("Usuário ou senha inválidos", "error"); // <- notificação de erro
+
       setError("password", {
         type: "manual",
         message: "Informações incorretas",
@@ -43,10 +48,15 @@ export default function LoginPage() {
             type="text"
             {...register("username", { required: "Usuário é obrigatório" })}
           />
-          {errors.username && <p className="erro-msg">{errors.username.message}</p>}
+          {errors.username && (
+            <p className="erro-msg">{errors.username.message}</p>
+          )}
 
           <div className="senha-label-container">
-            <label htmlFor="password" className={errors.password ? "erro-label" : ""}>
+            <label
+              htmlFor="password"
+              className={errors.password ? "erro-label" : ""}
+            >
               Senha:
             </label>
             {capsLockAtivo && (
@@ -60,7 +70,9 @@ export default function LoginPage() {
             onKeyUp={verificarCapsLock}
             className={errors.password ? "input-erro" : ""}
           />
-          {errors.password && <p className="erro-msg">{errors.password.message}</p>}
+          {errors.password && (
+            <p className="erro-msg">{errors.password.message}</p>
+          )}
 
           <button type="submit">Entrar</button>
         </form>

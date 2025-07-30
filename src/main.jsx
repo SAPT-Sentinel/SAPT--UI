@@ -4,8 +4,9 @@ import './index.css';
 import App from './App.jsx';
 
 // Importações do contexto e da snackbar
-import { NotificationProvider } from './context/NotificationContext';
-import SnackBarComponent from './components/SnackBarComponent'; // ajuste o caminho conforme necessário
+import { NotificationProvider } from './context/NotificationContext.jsx';
+import SnackBarComponent from './components/SnackBar.jsx';
+
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
