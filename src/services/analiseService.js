@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export async function gerarAnalise(url) {
-  const res = await axios.post("http://localhost:8000/api/analise", {
+  const res = await axios.post("https://sapt-api.onrender.com/api/analise", {
     url: url,
   });
   return res.data;
@@ -9,7 +9,7 @@ export async function gerarAnalise(url) {
 
 export async function editarResultado(resultadoId, passou, detalhes) {
   const res = await axios.put(
-    `http://localhost:8000/api/resultados/${resultadoId}`,
+    `https://sapt-api.onrender.com/api/resultados/${resultadoId}`,
     {
       passou,
       detalhes,
