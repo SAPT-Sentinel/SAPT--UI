@@ -26,7 +26,7 @@ export default function Sidebar() {
           <i className="fi fi-sr-house-chimney icon"></i>
           {aberta && 'Dashboard'}
         </NavLink>
-        <NavLink to="/nova-avaliacao" className="nav-item">
+        <NavLink to="/analise" className="nav-item">
           <i className="fi fi-rr-square-plus icon"></i>
           {aberta && 'Nova Avaliação'}
         </NavLink>
