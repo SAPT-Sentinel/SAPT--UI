@@ -18,11 +18,16 @@
 .toggle-btn {
   background: none;
   border: none;
-  font-size: 20px;
+  font-size: 22px;
   margin-bottom: 1.5rem;
   cursor: pointer;
-  color: #333;
+  color: #111827;
   align-self: flex-end;
+  transition: color 0.2s;
+}
+
+.toggle-btn:hover {
+  color: #6b7280;
 }
 
 .user-info {
@@ -70,7 +75,7 @@
   font-size: 14px;
   font-weight: 500;
   color: #111827;
-  text-decoration: none;
+  text-decoration: none !important;
   border-radius: 8px;
   transition: background 0.2s;
   white-space: nowrap;
@@ -79,10 +84,17 @@
 .nav-item:hover,
 .nav-item.active {
   background-color: #f3f4f6;
+  color: #111827;
+  text-decoration: none;
 }
 
 .nav-item.sair {
-  color: #7c1212;
+  color: #b91c1c;
+}
+
+.nav-item.sair:hover {
+  background-color: #fef2f2;
+  color: #7f1d1d;
 }
 
 .sidebar.fechada .nav-item {
@@ -98,4 +110,3 @@
 .sidebar.fechada .nav-item .icon {
   margin: 0;
 }
-

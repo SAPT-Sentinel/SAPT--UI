@@ -1,13 +1,17 @@
-import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
-import '../styles/sidebar.css';
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import "../styles/sidebar.css";
 
 export default function Sidebar() {
   const [aberta, setAberta] = useState(true);
 
   return (
-    <div className={`sidebar ${aberta ? '' : 'fechada'}`}>
-      <button className="toggle-btn" onClick={() => setAberta(!aberta)}>
+    <div className={`sidebar ${aberta ? "" : "fechada"}`}>
+      <button
+        className="toggle-btn"
+        onClick={() => setAberta(!aberta)}
+        aria-label="Toggle menu"
+      >
         ☰
       </button>
 
@@ -24,19 +28,19 @@ export default function Sidebar() {
       <nav className="nav-links">
         <NavLink to="/dashboard" className="nav-item">
           <i className="fi fi-sr-house-chimney icon"></i>
-          {aberta && 'Dashboard'}
+          {aberta && "Dashboard"}
         </NavLink>
         <NavLink to="/analise" className="nav-item">
           <i className="fi fi-rr-square-plus icon"></i>
-          {aberta && 'Nova Avaliação'}
+          {aberta && "Nova Avaliação"}
         </NavLink>
         <NavLink to="/configuracoes" className="nav-item">
           <i className="fi fi-rs-settings icon"></i>
-          {aberta && 'Configurações'}
+          {aberta && "Configurações"}
         </NavLink>
         <NavLink to="/login" className="nav-item sair">
           <i className="fi fi-rr-exit icon"></i>
-          {aberta && 'Sair'}
+          {aberta && "Sair"}
         </NavLink>
       </nav>
     </div>
